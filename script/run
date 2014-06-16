@@ -1,0 +1,4 @@
+#!/bin/bash
+
+opts=`xargs echo < .docker-opts`
+docker run -i -t -v `pwd`:/code $opts anthrobot $*
