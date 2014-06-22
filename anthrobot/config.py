@@ -13,3 +13,6 @@ class Config(object):
             for n in self.nouns
             for v in self.verbs
         ]
+
+    def reject_tweet(self, tweet):
+        return False
