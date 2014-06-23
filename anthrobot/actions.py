@@ -1,4 +1,4 @@
-from pattern.en import conjugate, lemma
+from pattern.en import conjugate, lemma, tag
 
 import re
 
@@ -31,6 +31,11 @@ def transform(text):
 
     # text
     text = text.lower() + " "
+
+    # change "going to do something" -> "do something", while preserving "going to a thing"
+    tags = tag(text)
+    if tags[0][0] == "going" and tags[1][0] == "to" and tags[2][1] == "VB":
+        text = " ".join(text.split()[2:]) + " "
 
     # transform the verb
     orig_verb = text.split()[0]

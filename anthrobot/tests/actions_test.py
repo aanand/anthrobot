@@ -51,3 +51,13 @@ class ActionsTest(unittest.TestCase):
             u'kisses ur scars',
             u'sleeps next to u'
         ]))
+
+    def test_going_to(self):
+        generated_actions = actions.generate(self.config, [
+            u'my cat is going to kill me',
+            u'my cat is going to the doctor',
+        ])
+        self.assertEqual(set(generated_actions), set([
+            u'kills u',
+            u'goes to the doctor',
+        ]))
