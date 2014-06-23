@@ -1,4 +1,4 @@
-FROM aanand/numpy:2.7-1.8.1
+FROM orchardup/python:2.7
 
 RUN mkdir /code
 WORKDIR /code
