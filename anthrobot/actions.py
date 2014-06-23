@@ -8,7 +8,7 @@ from .utils import truncate
 def generate(config, tweets):
     tweets = [t for t in tweets if not config.reject_tweet(tweets)]
     matches = get_matches(config, tweets)
-    truncated = [truncate(m, config.seeds()) for m in matches]
+    truncated = [truncate(m, config.action_seeds()) for m in matches]
     actions = [transform_action(m) for m in truncated]
     return list(set(actions))
 
@@ -16,7 +16,7 @@ def generate(config, tweets):
 def get_matches(config, tweets):
     searches = [
         re.search(seed + " [a-z]+ing.*", tweet, flags=re.IGNORECASE)
-        for seed in config.seeds()
+        for seed in config.action_seeds()
         for tweet in tweets
     ]
     return [s.group() for s in searches if s]
