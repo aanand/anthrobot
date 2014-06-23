@@ -6,23 +6,27 @@ from .utils import truncate
 
 
 def generate(config, tweets):
+    seeds = config.action_seeds()
     tweets = [t for t in tweets if not config.reject_tweet(tweets)]
-    matches = get_matches(config, tweets)
-    truncated = [truncate(m, config.action_seeds()) for m in matches]
-    actions = [transform_action(m) for m in truncated]
-    return list(set(actions))
+
+    matches = get_matches(tweets, seeds)
+    truncated = [truncate(m, seeds) for m in matches]
+    transformed = [transform(m) for m in truncated]
+    unique = list(set(transformed))
+
+    return unique
 
 
-def get_matches(config, tweets):
+def get_matches(tweets, seeds):
     searches = [
         re.search(seed + " [a-z]+ing.*", tweet, flags=re.IGNORECASE)
-        for seed in config.action_seeds()
+        for seed in seeds
         for tweet in tweets
     ]
     return [s.group() for s in searches if s]
 
 
-def transform_action(text):
+def transform(text):
     transformations = []
 
     # text

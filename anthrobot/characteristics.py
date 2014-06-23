@@ -6,26 +6,29 @@ from .utils import truncate
 
 
 def generate(config, tweets):
+    seeds = config.characteristic_seeds()
     tweets = [t for t in tweets if not config.reject_tweet(tweets)]
-    matches = get_matches(config, tweets)
-    truncated = [truncate(m, config.characteristic_seeds()) for m in matches]
-    transformed = [transform_characteristic(m) for m in truncated]
+
+    matches = get_matches(tweets, seeds)
+    truncated = [truncate(m, seeds) for m in matches]
+    transformed = [transform(m) for m in truncated]
     nonempty = [c for c in transformed if len(c) > 0]
     unique = list(set(nonempty))
     filtered = [c for c in unique if not filter_verbs(c)]
+
     return filtered
 
 
-def get_matches(config, tweets):
+def get_matches(tweets, seeds):
     searches = [
         re.search(seed + ".*", tweet, flags=re.IGNORECASE)
-        for seed in config.characteristic_seeds()
+        for seed in seeds
         for tweet in tweets
     ]
     return [s.group() for s in searches if s]
 
 
-def transform_characteristic(text):
+def transform(text):
     transformations = []
 
     # text
