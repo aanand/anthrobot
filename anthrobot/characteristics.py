@@ -29,43 +29,42 @@ def get_matches(tweets, seeds):
 
 
 def transform(text):
-    transformations = []
-
-    # text
     text = text.lower() + " "
 
-    # transform first person to third
-    transformations += [(" me ", " u ")]
-    transformations += [(" my ", " ur ")]
+    transformations = [
+      # transform first person to third
+      (" me ",    " u "),
+      (" my ",    " ur "),
 
-    transformations += [(" i'm ", " ur ")]
-    transformations += [(" im ", " ur ")]
-    transformations += [(" i am ", " ur ")]
-    transformations += [(" i ", " u ")]
-    transformations += [(" i ", " u ")]
-    transformations += [(" i've ", " u've ")]
-    transformations += [(" ive ", " u've ")]
-    transformations += [(" i'd ", " u'd ")]
-    transformations += [(" id ", " u'd ")]
+      (" i'm ",   " ur "),
+      (" im ",    " ur "),
+      (" i am ",  " ur "),
+      (" i ",     " u "),
+      (" i ",     " u "),
+      (" i've ",  " u've "),
+      (" ive ",   " u've "),
+      (" i'd ",   " u'd "),
+      (" id ",    " u'd "),
 
-    transformations += [(" we ", " u ")]
-    transformations += [(" ours ", " urs ")]
-    transformations += [(" our ", " ur ")]
-    transformations += [(" us ", " ur ")]
+      (" we ",    " u "),
+      (" ours ",  " urs "),
+      (" our ",   " ur "),
+      (" us ",    " ur "),
 
-    # transform third person to first person
-    transformations += [(" his ", " my ")]
-    transformations += [(" him ", " me ")]
-    transformations += [(" her ", " me ")]
-    transformations += [(" he ", " i ")]
-    transformations += [(" she ", " i ")]
-    transformations += [(" he's ", " im ")]
-    transformations += [(" she's ", " im ")]
-    transformations += [(" hes ", " im ")]
-    transformations += [(" shes ", " im ")]
-    transformations += [(" shes ", " im ")]
+      # transform third person to first person
+      (" his ",   " my "),
+      (" him ",   " me "),
+      (" her ",   " me "),
+      (" he ",    " i "),
+      (" she ",   " i "),
+      (" he's ",  " im "),
+      (" she's ", " im "),
+      (" hes ",   " im "),
+      (" shes ",  " im "),
+      (" shes ",  " im "),
 
-    transformations += [(" n't ", " not ")]
+      (" n't ",   " not "),
+    ]
 
     for orig, repl in transformations:
         text = text.replace(orig, repl)
