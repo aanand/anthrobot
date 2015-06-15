@@ -1,2 +1,3 @@
 .docker-opts
 *.egg-info
+/.tox
