@@ -78,5 +78,3 @@ def filter_verbs(text):
         return t[1].pos.startswith('VB')
     else:
         return t[0].pos.startswith('VB')
-
-
