@@ -52,3 +52,13 @@ class CharacteristicsTest(unittest.TestCase):
             u'soft',
             u'damn good',
         ]))
+
+    def test_so_much(self):
+        generated_characteristics = characteristics.generate(self.config, [
+            u'my cat is so big that i cant carry her',
+            u'my cat is so big i cant carry her',
+        ])
+        self.assertEqual(set(generated_characteristics), set([
+            u'so big that u cant carry me',
+            u'big u cant carry me',
+        ]))
